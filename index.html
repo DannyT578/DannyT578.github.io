@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accessory System — Documentation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#0f1117;color:#ddd8cc;font-size:14px;line-height:1.7}
+.hdr{background:#161920;border-bottom:1px solid #2a2f45;padding:20px 32px 0;position:sticky;top:0;z-index:10}
+.hdr h1{font-size:17px;font-weight:500;color:#c8a84a;font-family:monospace;letter-spacing:.5px}
+.vbadge{font-size:11px;background:#1e2130;border:1px solid #2a2f45;color:#8a8478;padding:2px 8px;border-radius:3px;margin-left:8px;vertical-align:middle;font-family:monospace}
+.sub{font-size:12px;color:#8a8478;margin:4px 0 0}
+.tabs{display:flex;gap:0;margin-top:14px;overflow-x:auto}
+.tb{font-size:13px;font-weight:500;color:#8a8478;background:none;border:none;border-bottom:2px solid transparent;padding:10px 20px;cursor:pointer;white-space:nowrap}
+.tb:hover{color:#ddd8cc}
+.tb.on{color:#c8a84a;border-bottom-color:#c8a84a}
+.body{max-width:860px;margin:0 auto;padding:36px 32px 80px}
+.panel{display:none}.panel.on{display:block}
+h2{font-family:monospace;font-size:13px;font-weight:500;color:#c8a84a;letter-spacing:1.5px;text-transform:uppercase;margin:36px 0 14px;padding-bottom:8px;border-bottom:1px solid #2a2f45}
+h2:first-child{margin-top:0}
+h3{font-size:15px;font-weight:600;color:#f0ead8;margin:24px 0 8px}
+p{margin-bottom:12px;color:#ddd8cc;font-size:13px}
+a{color:#a8b4f0}
+pre{background:#0a0d14;border:1px solid #2a2f45;border-left:3px solid #8a6f2a;border-radius:4px;padding:16px 18px;overflow-x:auto;margin:12px 0 20px;font-family:monospace;font-size:12.5px;line-height:1.6;color:#c8d0e8}
+code{font-family:monospace;font-size:12px;background:#1e2130;color:#a8b4f0;padding:1px 6px;border-radius:3px}
+pre code{background:none;padding:0;color:inherit}
+.steps{list-style:none;counter-reset:s}
+.steps li{counter-increment:s;padding:12px 16px 12px 52px;position:relative;background:#161920;border:1px solid #2a2f45;border-radius:5px;margin-bottom:8px;font-size:13px}
+.steps li::before{content:counter(s);position:absolute;left:16px;top:12px;width:22px;height:22px;background:#1e2130;border:1px solid #8a6f2a;border-radius:50%;font-family:monospace;font-size:11px;color:#c8a84a;text-align:center;line-height:22px}
+table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+th{background:#1e2130;color:#f0ead8;font-weight:600;text-align:left;padding:10px 14px;border-bottom:1px solid #2a2f45;font-size:12px}
+td{padding:9px 14px;border-bottom:1px solid #2a2f45;color:#ddd8cc;vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+td:first-child{font-family:monospace;font-size:12px;color:#a8b4f0;white-space:nowrap}
+.callout{background:rgba(200,168,74,.07);border:1px solid rgba(200,168,74,.25);border-left:3px solid #c8a84a;border-radius:4px;padding:12px 16px;margin:16px 0;font-size:13px}
+.callout.blue{background:rgba(123,140,222,.07);border-color:rgba(123,140,222,.25);border-left-color:#7b8cde}
+.callout strong{color:#c8a84a}
+.callout.blue strong{color:#a8b4f0}
+.req{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;background:rgba(224,122,122,.15);color:#e07a7a;border:1px solid rgba(224,122,122,.3)}
+.opt{display:inline-block;font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;background:rgba(106,191,138,.15);color:#6abf8a;border:1px solid rgba(106,191,138,.3)}
+details{background:#161920;border:1px solid #2a2f45;border-radius:5px;margin-bottom:8px;overflow:hidden}
+summary{padding:14px 18px;cursor:pointer;font-weight:500;color:#f0ead8;font-size:13px;list-style:none}
+summary::before{content:"▶ ";font-size:9px;color:#c8a84a}
+details[open] summary::before{content:"▼ "}
+details .dp{padding:0 18px 14px;border-top:1px solid #2a2f45;padding-top:12px;font-size:13px;color:#8a8478}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div style="display:flex;align-items:baseline;gap:8px">
+    <h1>Accessory System</h1><span class="vbadge">v1.0</span>
+  </div>
+  <p class="sub">Dynamic Character Accessories for Unity 6 &nbsp;·&nbsp; Render Pipeline Agnostic &nbsp;·&nbsp; Runtime + Editor Tooling</p>
+  <nav class="tabs">
+    <button class="tb on" onclick="sw('qs',this)">Quick Start</button>
+    <button class="tb" onclick="sw('comp',this)">Components</button>
+    <button class="tb" onclick="sw('data',this)">Data Assets</button>
+    <button class="tb" onclick="sw('ed',this)">Editor Tools</button>
+    <button class="tb" onclick="sw('api',this)">API Reference</button>
+    <button class="tb" onclick="sw('intg',this)">Integration</button>
+    <button class="tb" onclick="sw('faq',this)">FAQ</button>
+  </nav>
+</div>
+<div class="body">
+
+<div id="qs" class="panel on">
+<h2>Quick Start</h2>
+<p>Get an accessory appearing on a character in under 5 minutes.</p>
+<h3>Step 1 — Add components to your character</h3>
+<ol class="steps">
+  <li>Add <code>ArchetypeTag</code> — set at least one tag matching your character type, e.g. <code>humanoid-male</code></li>
+  <li>Add <code>AccessorySocketMap</code> — add one entry: Slot Config = your SlotConfig asset, Bone Name = exact bone name from your rig (e.g. <code>mixamorig:Head</code>). Use the <strong>Pick</strong> button to scan your hierarchy and select from a list.</li>
+  <li>Add <code>AccessoryController</code> — no manual configuration needed. Reads ArchetypeTag and AccessorySocketMap automatically.</li>
+</ol>
+<h3>Step 2 — Create your data assets</h3>
+<p>Right-click in Project window → <strong>Create → Accessory System</strong></p>
+<ol class="steps">
+  <li>Create a <strong>Slot Config</strong> — give it a unique Slot ID like <code>LeftEar</code> or <code>Neck</code></li>
+  <li>Create an <strong>Accessory Variant Definition</strong> — set archetype tag, assign SlotConfig, assign prefab, enter bone name</li>
+  <li>Create an <strong>Accessory Item</strong> — give it a unique Item ID and add the variant to its Variants list</li>
+</ol>
+<h3>Step 3 — Position the accessory visually</h3>
+<ol class="steps">
+  <li>Select your character in the Scene</li>
+  <li>In the AccessorySocketMap Inspector scroll to <strong>Variant Preview</strong></li>
+  <li>Assign your Variant Definition — the mesh appears on the character in edit mode</li>
+  <li>Toggle <strong>Position / Rotation / Scale</strong> handles and drag to place precisely</li>
+  <li>Values write back to the Variant SO automatically with full Undo support</li>
+</ol>
+<h3>Step 4 — Equip at runtime</h3>
+<pre><code>var controller = character.GetComponent&lt;AccessoryController&gt;();
+
+controller.Equip(myItem, mySlot);              // equip into slot
+controller.Unequip(mySlot);                    // remove from slot
+controller.Swap(newItem, mySlot);              // replace slot contents
+AccessoryItem cur = controller.Query(mySlot);  // query current item</code></pre>
+<h3>Step 5 — Subscribe to events</h3>
+<pre><code>controller.OnEquip   += (item, slot) => Debug.Log($"Equipped {item.DisplayName}");
+controller.OnUnequip += slot         => Debug.Log($"Unequipped {slot.SlotId}");
+controller.OnSwap    += (item, slot) => Debug.Log($"Swapped to {item.DisplayName}");</code></pre>
+<h3>Step 6 — Material variants (optional)</h3>
+<p>To support Black, Gold, Platinum versions of the same mesh:</p>
+<ol class="steps">
+  <li>Add <code>AccessoryMaterialVariant</code> to your accessory prefab root</li>
+  <li>Fill the Variants array — index 0 = Black, 1 = Gold, 2 = Platinum</li>
+  <li>On each AccessoryVariantDefinition set <strong>Material Variant Index</strong> to the matching index. Set <code>-1</code> to skip.</li>
+</ol>
+<div class="callout blue"><strong>Important:</strong> Place <code>AccessoryMaterialVariant</code> on the prefab root even if renderers are on child GameObjects. The component uses <code>GetComponentsInChildren</code> and applies the material to every renderer and every material slot found — multi-mesh accessories update correctly in one call.</div>
+</div>
+
+<div id="comp" class="panel">
+<h2>Runtime Components</h2>
+<p>All components live in <code>AccessorySystem.Runtime</code>. Add to character GameObjects unless noted.</p>
+<h3>ArchetypeTag <span class="req">required</span></h3>
+<p>Defines the character's identity with an ordered list of string tags. Most specific tag first.</p>
+<table><tr><th>Field</th><th>Description</th></tr><tr><td>Tags</td><td>Ordered archetype strings. E.g. <code>["humanoid-female", "humanoid"]</code></td></tr></table>
+<table><tr><th>Method</th><th>Description</th></tr>
+<tr><td>AddTag(string)</td><td>Add a tag at runtime for transformations or state changes</td></tr>
+<tr><td>RemoveTag(string)</td><td>Remove a tag at runtime</td></tr>
+<tr><td>HasTag(string)</td><td>Returns true if the character has the given tag</td></tr>
+<tr><td>SetTags(IEnumerable)</td><td>Replace all tags at once</td></tr></table>
+<h3>AccessorySocketMap <span class="req">required</span></h3>
+<p>Maps slot labels to bone transforms. Walks the full hierarchy on Awake to cache bones by name. Call <code>Initialize()</code> manually if the rig changes at runtime.</p>
+<div class="callout blue"><strong>Bone names must match exactly</strong> — including capitalisation and colons. Use the Bone Finder (Scan Hierarchy → Pick) to select from your actual rig bones rather than typing manually.</div>
+<h3>AccessoryController <span class="req">required</span></h3>
+<p>The main runtime engine. Implements <code>IAccessoryEquippable</code>. Resolves variants, instantiates prefabs, parents to bones, applies material variants, fires C# events. Requires ArchetypeTag and AccessorySocketMap on the same GameObject via <code>[RequireComponent]</code>.</p>
+<h3>AccessoryJiggle <span class="opt">optional — attach to prefab</span></h3>
+<p>Spring/damper secondary physics. Attach to the accessory prefab root, not the character.</p>
+<table><tr><th>Field</th><th>Description</th></tr>
+<tr><td>Stiffness</td><td>Return-to-rest strength. Range 0.1–50. Higher = stiffer.</td></tr>
+<tr><td>Damping</td><td>Oscillation decay. Range 0.1–20. Higher = less swinging.</td></tr>
+<tr><td>Max Angle</td><td>Maximum sway in degrees. Prevents accessories flipping.</td></tr>
+<tr><td>Velocity Influence</td><td>How strongly parent bone velocity drives sway. Range 0–5.</td></tr>
+<tr><td>Sway X / Sway Z</td><td>Toggle which local axes are allowed to sway.</td></tr></table>
+<p>Call <code>SnapToRest()</code> after teleports. Call <code>SetCurrentAsRest()</code> after programmatic repositioning.</p>
+<h3>AccessorySaveModule <span class="opt">optional</span></h3>
+<p>Persists equipped state to PlayerPrefs. Add alongside AccessoryController to enable. Omit to disable entirely.</p>
+<table><tr><th>Field</th><th>Description</th></tr>
+<tr><td>Character ID</td><td>Unique save key prefix. Defaults to GameObject name if empty.</td></tr>
+<tr><td>Tracked Slots</td><td>Which SlotConfigs to persist.</td></tr>
+<tr><td>Auto Save On Change</td><td>Saves to PlayerPrefs on every equip/unequip/swap event.</td></tr>
+<tr><td>Auto Load On Start</td><td>Re-equips saved items on Start.</td></tr>
+<tr><td>Item Registry</td><td>All AccessoryItems that could be loaded. Required for resolving saved item IDs back to SO references.</td></tr></table>
+<h3>AccessoryMaterialVariant <span class="opt">optional — attach to prefab</span></h3>
+<p>Swaps materials across all renderers in the prefab hierarchy with a single call. Attach to the prefab root. Searches children automatically. Applies the chosen material to all material slots on every renderer found.</p>
+<table><tr><th>Field</th><th>Description</th></tr>
+<tr><td>Variants</td><td>Array of materials. Index 0 is the base material.</td></tr>
+<tr><td>Default Variant Index</td><td>Which index to show by default. Overridden at runtime by AccessoryController when MaterialVariantIndex is set on the Variant Definition.</td></tr></table>
+<pre><code>var mat = accessory.GetComponent&lt;AccessoryMaterialVariant&gt;();
+mat.ApplyVariant(0);            // by index
+mat.ApplyVariant("Mat_Gold");   // by material name
+mat.NextVariant();              // cycle through all variants</code></pre>
+</div>
+
+<div id="data" class="panel">
+<h2>Data Assets</h2>
+<p>Right-click in Project window → <strong>Create → Accessory System</strong></p>
+<h3>SlotConfig</h3>
+<p>Defines a named equipment slot. Fully developer-defined — no hardcoded slot types exist in the system.</p>
+<table><tr><th>Field</th><th>Description</th></tr>
+<tr><td>Slot ID</td><td>Unique string identifier. E.g. <code>LeftEar</code>, <code>RightEar</code>, <code>Neck</code>, <code>LeftWrist</code></td></tr>
+<tr><td>Display Name</td><td>Human-readable label for UI. Falls back to Slot ID if empty.</td></tr></table>
+<h3>AccessoryVariantDefinition</h3>
+<p>How a specific accessory looks on a specific character archetype in a specific slot. Create one per archetype-slot combination that needs a unique visual.</p>
+<table><tr><th>Field</th><th>Description</th></tr>
+<tr><td>Archetype Tag</td><td>Must exactly match a tag on the character's ArchetypeTag component.</td></tr>
+<tr><td>Slot Config</td><td>Which slot this variant targets. Used by the slot-aware resolver.</td></tr>
+<tr><td>Accessory Prefab</td><td>Prefab instantiated and parented to the bone at runtime.</td></tr>
+<tr><td>Bone Name</td><td>Exact bone name in the character's skeleton. E.g. <code>mixamorig:Head</code></td></tr>
+<tr><td>Local Position Offset</td><td>Fine position offset from the bone. Set visually with the position handle.</td></tr>
+<tr><td>Local Rotation Offset</td><td>Fine rotation from the bone. Set with the rotation handle.</td></tr>
+<tr><td>Local Scale</td><td>Scale relative to default. Useful for sizing per character.</td></tr>
+<tr><td>Material Variant Index</td><td>Index into the prefab's AccessoryMaterialVariant. Applied after instantiation. Set to -1 to skip.</td></tr>
+<tr><td>LOD 1 / LOD 2 Prefab</td><td>Optional lower-detail prefabs. Leave empty if not needed.</td></tr></table>
+<h3>AccessoryItem</h3>
+<p>Top-level logical identity of a wearable item. One per item in your game world. Holds all variants across all archetypes and slots.</p>
+<table><tr><th>Field</th><th>Description</th></tr>
+<tr><td>Item ID</td><td>Unique string. Match your inventory system's item ID for easy bridging.</td></tr>
+<tr><td>Display Name</td><td>Human-readable name for UI.</td></tr>
+<tr><td>Icon</td><td>Optional Sprite for UI display.</td></tr>
+<tr><td>Variants</td><td>List of AccessoryVariantDefinition assets. One per archetype-slot combination.</td></tr></table>
+<div class="callout"><strong>Slot-aware resolution:</strong> Resolver first matches archetype AND slot together. Falls back to archetype-only if no slot-specific variant exists. Necklaces work with one variant per character while earrings can have fully independent left and right variants on the same item.</div>
+</div>
+
+<div id="ed" class="panel">
+<h2>Editor Tools</h2>
+<p>All editor tooling lives in <code>AccessorySystem.Editor</code> — never included in builds.</p>
+<h3>Bone Finder</h3>
+<p>Click <strong>Scan Hierarchy for Bones</strong> on the AccessorySocketMap Inspector to scan the full character transform tree. Click <strong>Pick</strong> on any socket entry to choose from the complete list. A green indicator confirms the bone name is valid in the current hierarchy. Red means the bone name doesn't match — check spelling and capitalisation.</p>
+<h3>Variant Preview</h3>
+<p>Assign a Variant Definition to the <strong>Preview Variant</strong> field. The accessory mesh appears on the character in edit mode at current offset values. Updates live as you drag handles. The preview instance is flagged <code>HideFlags.DontSave</code> — never saved into your scene.</p>
+<h3>Scene View Handles</h3>
+<p>Three toggleable handle types when a Variant Preview is active. Only one active at a time is recommended.</p>
+<table><tr><th>Handle</th><th>Controls</th><th>Writes to</th></tr>
+<tr><td>Position</td><td>Move in local bone space</td><td>Local Position Offset</td></tr>
+<tr><td>Rotation</td><td>Rotate relative to bone</td><td>Local Rotation Offset</td></tr>
+<tr><td>Scale</td><td>Scale with minimum clamp (0.0001)</td><td>Local Scale</td></tr></table>
+<div class="callout blue"><strong>All changes write directly to the Variant SO on disk</strong> at 4 decimal precision with full Undo/Redo. A live readout shows current values updating in real time as you drag. Reset buttons — Reset Pos, Reset Rot, Reset Scale, Reset All — are available while a preview is active.</div>
+<h3>Variant Definition Inspector</h3>
+<table><tr><th>Feature</th><th>Description</th></tr>
+<tr><td>Precision fields</td><td>Position, rotation, scale shown at 4 decimal places with direct text entry</td></tr>
+<tr><td>Material Variant Index</td><td>Set which material variant to apply when equipped. -1 skips swapping.</td></tr>
+<tr><td>Reset Offsets</td><td>Zero position/rotation, reset scale to 1,1,1 in one click</td></tr>
+<tr><td>Copy Offset Values</td><td>Copies all current offset values to clipboard as formatted text</td></tr>
+<tr><td>Validation summary</td><td>Green when all required fields are filled. Red lists exactly what is missing.</td></tr></table>
+</div>
+
+<div id="api" class="panel">
+<h2>API Reference</h2>
+<h3>IAccessoryEquippable</h3>
+<pre><code>public interface IAccessoryEquippable
+{
+    // Equip item into slot. Unequips existing item in that slot first.
+    void Equip(AccessoryItem item, SlotConfig slot);
+
+    // Remove item from slot. No-op if slot is already empty.
+    void Unequip(SlotConfig slot);
+
+    // Replace slot contents. Fires OnSwap, not separate equip/unequip events.
+    void Swap(AccessoryItem newItem, SlotConfig slot);
+
+    // Returns item currently in slot, or null if empty.
+    AccessoryItem Query(SlotConfig slot);
+}</code></pre>
+<h3>AccessoryController Events</h3>
+<pre><code>public event Action&lt;AccessoryItem, SlotConfig&gt; OnEquip;
+public event Action&lt;SlotConfig&gt;               OnUnequip;
+public event Action&lt;AccessoryItem, SlotConfig&gt; OnSwap;</code></pre>
+<h3>AccessoryItem — Variant Resolution</h3>
+<pre><code>// Slot-aware with archetype fallback
+AccessoryVariantDefinition GetVariantForArchetypes(
+    IEnumerable&lt;string&gt; archetypeTags,
+    SlotConfig slot = null);
+
+// Single archetype tag + optional slot
+AccessoryVariantDefinition GetVariantForArchetype(
+    string archetypeTag,
+    SlotConfig slot = null);</code></pre>
+<h3>ArchetypeTag Runtime Methods</h3>
+<pre><code>void AddTag(string tag);
+void RemoveTag(string tag);
+bool HasTag(string tag);
+void SetTags(IEnumerable&lt;string&gt; newTags);</code></pre>
+<h3>AccessorySaveModule Public Methods</h3>
+<pre><code>void SaveAll();      // Save all tracked slots to PlayerPrefs
+void LoadAll();      // Load and re-equip all saved slots
+void ClearAll();     // Delete all saved data for this character
+bool HasSaveData();  // Returns true if any saved data exists</code></pre>
+<h3>AccessoryMaterialVariant Public Methods</h3>
+<pre><code>void     ApplyVariant(int index);        // by index
+void     ApplyVariant(string matName);   // by material name
+void     NextVariant();                  // cycle to next variant
+Material CurrentMaterial  { get; }       // first renderer's current material
+int      CurrentIndex     { get; }
+int      VariantCount     { get; }</code></pre>
+<h3>AccessoryJiggle Public Methods</h3>
+<pre><code>void SnapToRest();        // Snap to rest. Call after teleports.
+void SetCurrentAsRest();  // Set current rotation as new rest state.</code></pre>
+</div>
+
+<div id="intg" class="panel">
+<h2>Integration Guide</h2>
+<h3>Connecting your inventory system</h3>
+<pre><code>public class MyInventoryBridge : MonoBehaviour, IAccessoryEquippable
+{
+    private AccessoryController _controller;
+    void Awake() => _controller = GetComponent&lt;AccessoryController&gt;();
+
+    public void Equip(AccessoryItem item, SlotConfig slot)
+        => _controller.Equip(item, slot);
+    public void Unequip(SlotConfig slot)
+        => _controller.Unequip(slot);
+    public void Swap(AccessoryItem item, SlotConfig slot)
+        => _controller.Swap(item, slot);
+    public AccessoryItem Query(SlotConfig slot)
+        => _controller.Query(slot);
+}</code></pre>
+<h3>Adding stats or effects to accessories</h3>
+<pre><code>[CreateAssetMenu(menuName = "My Game/My Accessory Item")]
+public class MyAccessoryItem : AccessoryItem
+{
+    [SerializeField] private int fireResistanceBonus;
+    [SerializeField] private Rarity rarity;
+
+    public int    FireResistance => fireResistanceBonus;
+    public Rarity Rarity         => rarity;
+}</code></pre>
+<div class="callout">The system only reads the base AccessoryItem class. Your subclass fields are completely invisible to the attachment pipeline — safe to extend freely without touching the system.</div>
+<h3>Reacting from other systems</h3>
+<pre><code>// Stat system recalculates on any equip change
+controller.OnEquip   += (item, slot) => statSystem.Recalculate(character);
+controller.OnUnequip += slot         => statSystem.Recalculate(character);
+
+// Achievement unlock
+controller.OnEquip += (item, slot) => {
+    if (item.ItemId == "item_legendary_ring")
+        achievements.Unlock("first_legendary");
+};</code></pre>
+<h3>Scripted equip from game logic</h3>
+<p>Call <code>AccessoryController.Equip()</code> directly from any coroutine, dialogue system, cutscene manager, or quest callback. The demo's <code>StoryEquipTrigger</code> shows a complete example with camera movement and configurable timing.</p>
+<h3>Render pipeline compatibility</h3>
+<p>The runtime system is render pipeline agnostic — it performs only transform manipulation and material assignment. Works identically with URP, HDRP, Built-in, and custom render pipelines. The demo scene uses URP/Lit materials. Reassign demo materials if using a different pipeline.</p>
+</div>
+
+<div id="faq" class="panel">
+<h2>Frequently Asked Questions</h2>
+<details><summary>Does this work with my existing inventory system?</summary>
+<div class="dp">Yes. Implement IAccessoryEquippable on a bridge component. Your inventory calls the bridge, the bridge calls Equip/Unequip. The system never needs to know how your inventory is structured.</div></details>
+<details><summary>Does it work with non-Mixamo rigs?</summary>
+<div class="dp">Yes. Any humanoid or creature rig works. Map bone names via AccessorySocketMap. The Bone Finder scans your hierarchy so you never need to type bone names manually.</div></details>
+<details><summary>What render pipelines are supported?</summary>
+<div class="dp">The runtime system is render pipeline agnostic. Demo scene uses URP materials. If using HDRP or Built-in, reassign the demo materials — the system requires no changes.</div></details>
+<details><summary>Can I equip different items in the left and right ear independently?</summary>
+<div class="dp">Yes. The resolver matches archetype AND slot together. A Black Earring in LeftEar and a Gold Earring in RightEar resolve to separate variants independently with no interference.</div></details>
+<details><summary>Can the same item look different on different characters?</summary>
+<div class="dp">Yes. One AccessoryItem holds multiple AccessoryVariantDefinition assets each tagged to a character archetype. The resolver picks the matching variant automatically.</div></details>
+<details><summary>How do I support Black, Gold, Platinum versions of the same mesh?</summary>
+<div class="dp">Add AccessoryMaterialVariant to the prefab root with your materials in the Variants array. Set Material Variant Index on each AccessoryVariantDefinition to 0, 1, or 2. The controller applies the correct material immediately after instantiation.</div></details>
+<details><summary>My accessory material is not changing — what should I check?</summary>
+<div class="dp">Three things: (1) AccessoryMaterialVariant is on the prefab root, not a child. (2) The Variants array has all materials saved — open the prefab in Prefab Mode, assign all three materials, and save. (3) Each AccessoryVariantDefinition SO has Material Variant Index set and saved individually with Ctrl+S — batch multi-select may not save all changes correctly.</div></details>
+<details><summary>Do accessories follow animations automatically?</summary>
+<div class="dp">Yes. Accessories are parented directly to the target bone at runtime. Unity's transform hierarchy propagates all movement — animations, physics, root motion, cutscenes — automatically with no extra logic.</div></details>
+<details><summary>Does this work with multiple characters simultaneously?</summary>
+<div class="dp">Yes. Each character has its own AccessoryController with independent state. No shared global state between characters. The demo shows four characters simultaneously.</div></details>
+<details><summary>Is the save module required?</summary>
+<div class="dp">No. AccessorySaveModule is entirely optional. Omit it and nothing is persisted. Subscribe to OnEquip/OnUnequip events to hook your own save system if preferred.</div></details>
+</div>
+
+</div>
+<script>
+function sw(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>
